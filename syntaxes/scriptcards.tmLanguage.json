@@ -1,0 +1,634 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "ScriptCards",
+	"scopeName": "source.scard",
+	"patterns": [{
+			"include": "#statement"
+		}
+	],
+	"repository": {
+		"statement": {
+			"patterns": [{
+				"name": "statement.scriptcards",
+				"begin": "(?=--)",
+				"end": "(?=\n)",
+				"patterns": [{
+					"include": "#statements"
+				}]
+			}]
+		},
+		"statement-util": {
+			"patterns": [{
+					"include": "#variables"
+				},
+				{
+					"include": "#tags"
+				},
+				{
+					"include": "#quoted-text"
+				}
+			]
+
+		},
+		"statements": {
+			"patterns": [{
+					"name": "_comment.statement.scriptcards",
+					"begin": "(--\\/)",
+					"beginCaptures": {
+						"0": {
+							"patterns": [{
+								"include": "#identifiers"
+							}]
+						}
+					},
+					"end": "(?=\n)",
+					"patterns": [{
+						"include": "#statement-util"
+					}]
+				},
+				{
+					"name": "roll.statement.scriptcards",
+					"begin": "(--=)",
+					"beginCaptures": {
+						"0": {
+							"patterns": [{
+								"include": "#identifiers"
+							}]
+						}
+					},
+					"end": "(?=\n|--)",
+					"patterns": [{
+						"include": "#statement-util"
+					}]
+				},
+				{
+					"name": "_string.statement.scriptcards",
+					"begin": "(--&)",
+					"beginCaptures": {
+						"0": {
+							"patterns": [{
+								"include": "#identifiers"
+							}]
+						}
+					},
+					"end": "(?=\n|--)",
+					"patterns": [{
+						"include": "#statement-util"
+					}]
+				},
+				{
+					"name": "parameter.statement.scriptcards",
+					"begin": "(--#)",
+					"beginCaptures": {
+						"0": {
+							"patterns": [{
+								"include": "#identifiers"
+							}]
+						}
+					},
+					"end": "(?=\n|--)",
+					"patterns": [{
+						"include": "#statement-util"
+					}]
+				},
+				{
+					"name": "conditional.statement.scriptcards",
+					"begin": "(--\\?)",
+					"beginCaptures": {
+						"0": {
+							"patterns": [{
+								"include": "#identifiers"
+							}]
+						}
+					},
+					"end": "(?=\n|--)",
+					"patterns": [{
+						"include": "#statement-util"
+					}]
+				},
+
+				{
+					"name": "output.statement.scriptcards",
+					"begin": "(--)\\+",
+					"beginCaptures": {
+						"0": {
+							"patterns": [{
+								"include": "#identifiers"
+							}]
+						}
+					},
+					"end": "(?=\n|--)",
+					"patterns": [{
+						"include": "#statement-util"
+					}]
+				},
+				{
+					"name": "branchlabel.statement.scriptcards",
+					"begin": "(--):",
+					"beginCaptures": {
+						"0": {
+							"patterns": [{
+								"include": "#identifiers"
+							}]
+						}
+					},
+					"end": "(?=\n|--)",
+					"patterns": [{
+						"include": "#statement-util"
+					}]
+				},
+				{
+					"name": "branchto.statement.scriptcards",
+					"begin": "(--)\\^",
+					"beginCaptures": {
+						"0": {
+							"patterns": [{
+								"include": "#identifiers"
+							}]
+						}
+					},
+					"end": "(?=\n|--)",
+					"patterns": [{
+						"include": "#statement-util"
+					}]
+				},
+				{
+					"name": "proccall.statement.scriptcards",
+					"begin": "(--)>",
+					"beginCaptures": {
+						"0": {
+							"patterns": [{
+								"include": "#identifiers"
+							}]
+						}
+					},
+					"end": "(?=\n|--)",
+					"patterns": [{
+						"include": "#statement-util"
+					}]
+				},
+				{
+					"name": "procreturn.statement.scriptcards",
+					"begin": "(--)<",
+					"beginCaptures": {
+						"0": {
+							"patterns": [{
+								"include": "#identifiers"
+							}]
+						}
+					},
+					"end": "(?=\n|--)",
+					"patterns": [{
+						"include": "#statement-util"
+					}]
+				},
+				{
+					"name": "repeating.statement.scriptcards",
+					"begin": "(--)R",
+					"beginCaptures": {
+						"0": {
+							"patterns": [{
+								"include": "#identifiers"
+							}]
+						}
+					},
+					"end": "(?=\n|--)",
+					"patterns": [{
+						"include": "#statement-util"
+					}]
+				},
+				{
+					"name": "builtin.statement.scriptcards",
+					"begin": "(--)~",
+					"beginCaptures": {
+						"0": {
+							"patterns": [{
+								"include": "#identifiers"
+							}]
+						}
+					},
+					"end": "(?=\n|--)",
+					"patterns": [{
+						"include": "#statement-util"
+					}]
+				},
+				{
+					"name": "case.statement.scriptcards",
+					"begin": "(--)C",
+					"beginCaptures": {
+						"0": {
+							"patterns": [{
+								"include": "#identifiers"
+							}]
+						}
+					},
+					"end": "(?=\n|--)",
+					"patterns": [{
+						"include": "#statement-util"
+					}]
+				},
+				{
+					"name": "exit.statement.scriptcards",
+					"begin": "(--)X",
+					"beginCaptures": {
+						"0": {
+							"patterns": [{
+								"include": "#identifiers"
+							}]
+						}
+					},
+					"end": "(?=\n|--)",
+					"patterns": [{
+						"include": "#statement-util"
+					}]
+				},
+				{
+					"name": "loop.statement.scriptcards",
+					"begin": "(--)%",
+					"beginCaptures": {
+						"0": {
+							"patterns": [{
+								"include": "#identifiers"
+							}]
+						}
+					},
+					"end": "(--)%(?=\\|)",
+					"endCaptures": {
+						"0": {
+							"patterns": [{
+								"include": "#identifiers"
+							}]
+						}
+					},
+					"patterns": [{
+							"include": "#statement-util"
+						},
+						{
+							"include": "#statements"
+						}
+					]
+				},
+				{
+					"name": "objectmod.statement.scriptcards",
+					"begin": "(--\\!)",
+					"beginCaptures": {
+						"0": {
+							"patterns": [{
+								"include": "#identifiers"
+							}]
+						}
+					},
+					"end": "(?=\n|--)",
+					"patterns": [{
+						"include": "#statement-util"
+					}]
+				},
+				{
+					"name": "loadstorage.statement.scriptcards",
+					"begin": "(--l)",
+					"beginCaptures": {
+						"0": {
+							"patterns": [{
+								"include": "#identifiers"
+							}]
+						}
+					},
+					"end": "(?=\n|--)",
+					"patterns": [{
+						"include": "#statement-util"
+					}]
+				},
+				{
+					"name": "info.statement.scriptcards",
+					"begin": "(--i)",
+					"beginCaptures": {
+						"0": {
+							"patterns": [{
+								"include": "#identifiers"
+							}]
+						}
+					},
+					"end": "(?=\n|--)",
+					"patterns": [{
+						"include": "#statement-info"
+					}]
+				},
+				{
+					"name": "api.statement.scriptcards",
+					"begin": "(--@)",
+					"beginCaptures": {
+						"0": {
+							"patterns": [{
+								"include": "#identifiers"
+							}]
+						}
+					},
+					"end": "(?=\n|--)",
+					"patterns": [{
+						"include": "#statement-util"
+					}]
+				}
+			]
+		},
+		"tags": {
+			"patterns": [{
+					"name": "_string.tag.scriptcards",
+					"match": "(?<=--&)[^|]+"
+				},
+				{
+					"name": "parameter.tag.scriptcards",
+					"match": "(?<=--#)[^|]+"
+				},
+				{
+					"name": "roll.tag.scriptcards",
+					"match": "(?<=--=)[^|]+"
+				},
+				{
+					"name": "loadstorage.tag.scriptcards",
+					"match": "(?<=--l)[^|]+"
+				},
+				{
+					"name": "builtin.tag.scriptcards",
+					"match": "(?<=--~)[^|]+"
+				},
+				{
+					"name": "api.tag.scriptcards",
+					"match": "(?<=--@)[^|]+"
+				}
+			]
+		},
+		"variables": {
+			"patterns": [{
+					"name": "_string.variable.scriptcards",
+					"match": "\\[&[^&]+?\\]|(?<=\\||;)\\&[^;$]+|(?<=--%)[^|]+"
+				},
+				{
+					"name": "selected.variable.scriptcards",
+					"match": "\\[\\*S:[^]]+]"
+				},
+				{
+					"name": "repeating.variable.scriptcards",
+					"match": "\\[\\*R:[^]]+]"
+				},
+				{
+					"name": "roll.variable.scriptcards",
+					"match": "\\[\\$[^$]+?\\]|(?<!/\\|)(?<=\\||;)=[^;$]+"
+				}
+			]
+		},
+		"doubledash": {
+			"name": "doubledash.scriptcards",
+			"match": "--"
+
+		},
+		"quoted-text": {
+			"patterns": [{
+				"name": "quoted.scriptcards",
+				"match": "\"[^\"]*\"",
+				"captures": {
+					"0": {
+						"patterns": [{
+							"include": "#variables"
+						}]
+					}
+				}
+			}]
+		},
+		"identifiers": {
+			"patterns": [{
+					"name": "_comment.identifier.scriptcards",
+					"match": "(--)\\/",
+					"captures": {
+						"0": {
+							"patterns": [{
+								"include": "#doubledash"
+							}]
+						}
+					}
+				},
+				{
+					"name": "roll.identifier.scriptcards",
+					"match": "(--)=",
+					"captures": {
+						"0": {
+							"patterns": [{
+								"include": "#doubledash"
+							}]
+						}
+					}
+				},
+				{
+					"name": "_string.identifier.scriptcards",
+					"match": "(--)&",
+					"captures": {
+						"0": {
+							"patterns": [{
+								"include": "#doubledash"
+							}]
+						}
+					}
+				},
+				{
+					"name": "parameter.identifier.scriptcards",
+					"match": "(--)#",
+					"captures": {
+						"0": {
+							"patterns": [{
+								"include": "#doubledash"
+							}]
+						}
+					}
+				},
+				{
+					"name": "conditional.identifier.scriptcards",
+					"match": "(--)\\?",
+					"captures": {
+						"0": {
+							"patterns": [{
+								"include": "#doubledash"
+							}]
+						}
+					}
+				},
+				{
+					"name": "output.identifier.scriptcards",
+					"match": "(--)\\+",
+					"captures": {
+						"0": {
+							"patterns": [{
+								"include": "#doubledash"
+							}]
+						}
+					}
+				},
+				{
+					"name": "branchlabel.identifier.scriptcards",
+					"match": "(--):",
+					"captures": {
+						"0": {
+							"patterns": [{
+								"include": "#doubledash"
+							}]
+						}
+					}
+				},
+				{
+					"name": "branchto.identifier.scriptcards",
+					"match": "(--)\\^",
+					"captures": {
+						"0": {
+							"patterns": [{
+								"include": "#doubledash"
+							}]
+						}
+					}
+				},
+				{
+					"name": "proccall.identifier.scriptcards",
+					"match": "(--)>",
+					"captures": {
+						"0": {
+							"patterns": [{
+								"include": "#doubledash"
+							}]
+						}
+					}
+				},
+				{
+					"name": "procreturn.identifier.scriptcards",
+					"match": "(--)<",
+					"captures": {
+						"0": {
+							"patterns": [{
+								"include": "#doubledash"
+							}]
+						}
+					}
+				},
+				{
+					"name": "repeating.identifier.scriptcards",
+					"match": "(--)R",
+					"captures": {
+						"0": {
+							"patterns": [{
+								"include": "#doubledash"
+							}]
+						}
+					}
+				},
+				{
+					"name": "builtin.identifier.scriptcards",
+					"match": "(--)~",
+					"captures": {
+						"0": {
+							"patterns": [{
+								"include": "#doubledash"
+							}]
+						}
+					}
+				},
+				{
+					"name": "case.identifier.scriptcards",
+					"match": "(--)C",
+					"captures": {
+						"0": {
+							"patterns": [{
+								"include": "#doubledash"
+							}]
+						}
+					}
+				},
+				{
+					"name": "exit.identifier.scriptcards",
+					"match": "(--)X",
+					"captures": {
+						"0": {
+							"patterns": [{
+								"include": "#doubledash"
+							}]
+						}
+					}
+				},
+				{
+					"name": "loop.identifier.scriptcards",
+					"match": "(--)%",
+					"captures": {
+						"0": {
+							"patterns": [{
+								"include": "#doubledash"
+							}]
+						}
+					}
+				},
+				{
+					"name": "objectmod.identifier.scriptcards",
+					"match": "(--)\\!",
+					"captures": {
+						"0": {
+							"patterns": [{
+								"include": "#doubledash"
+							}]
+						}
+					}
+				},
+				{
+					"name": "loadstorage.identifier.scriptcards",
+					"match": "(--)l",
+					"captures": {
+						"0": {
+							"patterns": [{
+								"include": "#doubledash"
+							}]
+						}
+					}
+				},
+				{
+					"name": "info.identifier.scriptcards",
+					"match": "(--)i",
+					"captures": {
+						"0": {
+							"patterns": [{
+								"include": "#doubledash"
+							}]
+						}
+					}
+				},
+				{
+					"name": "api.identifier.scriptcards",
+					"match": "(--)@",
+					"captures": {
+						"0": {
+							"patterns": [{
+								"include": "#doubledash"
+							}]
+						}
+					}
+				}
+			]
+		},
+		"branch-format": {
+			"patterns": [{
+				"name": "quoted.scriptcards",
+				"match": "\"[^\"]*\"",
+				"captures": {
+					"0": {
+						"patterns": [{
+							"include": "#variables"
+						}]
+					}
+				}
+			}]
+		},
+		"branches": {
+			"patterns": [{
+				"name": "branches.scriptcards",
+				"begin": "\\|(?=\\[)",
+				"end": "(?=\n)"
+				}
+			]
+		},
+		"statement-info":{
+
+		}
+	}
+}
