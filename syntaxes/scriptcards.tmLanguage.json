@@ -3,10 +3,106 @@
 	"name": "ScriptCards",
 	"scopeName": "source.scard",
 	"patterns": [{
+			"name": "condition.statement.scriptcards",
+			"begin": "(--\\?.+\\[$)",
+			"beginCaptures": {
+				"0": {
+					"patterns": [{
+							"include": "#statement"
+						},
+						{
+							"include": "#statement-util"
+						}
+
+					]
+				}
+			},
+			"end": "(--]\\|\\s*$)",
+			"endCaptures": {
+				"0": {
+					"patterns": [{
+						"include": "#identifiers"
+					}]
+				}
+			},
+			"patterns": [{
+					"name": "condition-end.identifier.scriptcards",
+					"match": "--\\]\\|\\[",
+					"captures": {
+						"0": {
+							"patterns": [{
+								"include": "#doubledash"
+							}]
+						}
+					}
+				},
+				{
+					"include": "#statement"
+				},
+				{
+					"include": "#statement-util"
+				}
+			]
+		},
+		{
 			"include": "#statement"
 		}
 	],
 	"repository": {
+		"operators": {
+			"name": "operator.scriptcards",
+			"match": "(-(eqi?|g[t|e]|nei?|l[t|e]|n?inc))",
+			"captures": {
+				"0": {
+					"patterns": [{
+						"include": "#comparison-operators"
+					}]
+				}
+			}
+		},
+		"comparison-operators": {
+			"patterns": [{
+					"name": "equalto.operator.scriptcards",
+					"match": "-eq"
+				},
+				{
+					"name": "equaltocaseinsensitive.operator.scriptcards",
+					"match": "-eqi"
+				},
+				{
+					"name": "notequalto.operator.scriptcards",
+					"match": "-ne"
+				},
+				{
+					"name": "notequaltocaseinsensitive.operator.scriptcards",
+					"match": "-nei"
+				},
+				{
+					"name": "greaterthan.operator.scriptcards",
+					"match": "-gt"
+				},
+				{
+					"name": "greaterthanorequalto.operator.scriptcards",
+					"match": "-gt"
+				},
+				{
+					"name": "lessthan.operator.scriptcards",
+					"match": "-lt"
+				},
+				{
+					"name": "lessthanorequalto.operator.scriptcards",
+					"match": "-le"
+				},
+				{
+					"name": "includes.operator.scriptcards",
+					"match": "-inc"
+				},
+				{
+					"name": "notincludes.operator.scriptcards",
+					"match": "-ninc"
+				}
+			]
+		},
 		"statement": {
 			"patterns": [{
 				"name": "statement.scriptcards",
@@ -26,6 +122,9 @@
 				},
 				{
 					"include": "#quoted-text"
+				},
+				{
+					"include": "#operators"
 				}
 			]
 
@@ -34,6 +133,21 @@
 			"patterns": [{
 					"name": "_comment.statement.scriptcards",
 					"begin": "(--\\/)",
+					"beginCaptures": {
+						"0": {
+							"patterns": [{
+								"include": "#identifiers"
+							}]
+						}
+					},
+					"end": "(?=\n)",
+					"patterns": [{
+						"include": "#statement-util"
+					}]
+				},
+				{
+					"name": "condition.statement.scriptcards",
+					"begin": "(--\\?)",
 					"beginCaptures": {
 						"0": {
 							"patterns": [{
@@ -91,22 +205,6 @@
 						"include": "#statement-util"
 					}]
 				},
-				{
-					"name": "conditional.statement.scriptcards",
-					"begin": "(--\\?)",
-					"beginCaptures": {
-						"0": {
-							"patterns": [{
-								"include": "#identifiers"
-							}]
-						}
-					},
-					"end": "(?=\n|--)",
-					"patterns": [{
-						"include": "#statement-util"
-					}]
-				},
-
 				{
 					"name": "output.statement.scriptcards",
 					"begin": "(--)\\+",
@@ -214,7 +312,7 @@
 				},
 				{
 					"name": "case.statement.scriptcards",
-					"begin": "(--)C",
+					"begin": "(--)[cC]",
 					"beginCaptures": {
 						"0": {
 							"patterns": [{
@@ -300,7 +398,7 @@
 				},
 				{
 					"name": "info.statement.scriptcards",
-					"begin": "(--i)",
+					"begin": "(--[iI])",
 					"beginCaptures": {
 						"0": {
 							"patterns": [{
@@ -311,6 +409,21 @@
 					"end": "(?=\n|--)",
 					"patterns": [{
 						"include": "#statement-info"
+					}]
+				},
+				{
+					"name": "gmwhisper.statement.scriptcards",
+					"begin": "(--\\*)",
+					"beginCaptures": {
+						"0": {
+							"patterns": [{
+								"include": "#identifiers"
+							}]
+						}
+					},
+					"end": "(?=\n|--)",
+					"patterns": [{
+						"include": "#statement-util"
 					}]
 				},
 				{
@@ -440,7 +553,7 @@
 					}
 				},
 				{
-					"name": "conditional.identifier.scriptcards",
+					"name": "condition.identifier.scriptcards",
 					"match": "(--)\\?",
 					"captures": {
 						"0": {
@@ -529,7 +642,7 @@
 				},
 				{
 					"name": "case.identifier.scriptcards",
-					"match": "(--)C",
+					"match": "(--)[cC]",
 					"captures": {
 						"0": {
 							"patterns": [{
@@ -584,7 +697,7 @@
 				},
 				{
 					"name": "info.identifier.scriptcards",
-					"match": "(--)i",
+					"match": "(--)[iI]",
 					"captures": {
 						"0": {
 							"patterns": [{
@@ -594,8 +707,19 @@
 					}
 				},
 				{
-					"name": "api.identifier.scriptcards",
-					"match": "(--)@",
+					"name": "gmwhisper.identifier.scriptcards",
+					"match": "(--)\\*",
+					"captures": {
+						"0": {
+							"patterns": [{
+								"include": "#doubledash"
+							}]
+						}
+					}
+				},
+				{
+					"name": "condition-end.identifier.scriptcards",
+					"match": "(--)\\]",
 					"captures": {
 						"0": {
 							"patterns": [{
@@ -624,10 +748,9 @@
 				"name": "branches.scriptcards",
 				"begin": "\\|(?=\\[)",
 				"end": "(?=\n)"
-				}
-			]
+			}]
 		},
-		"statement-info":{
+		"statement-info": {
 
 		}
 	}
