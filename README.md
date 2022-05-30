@@ -18,21 +18,48 @@ To determine the scope of a token you want to set styling for, open the Command 
 
 To add a color for a scope, add a JSON object to the `textMateRules` array, e.g.:
 ```
-  {
-      "scope": "output.statement.scriptcards",
-      "settings": {
-          "foreground": "#BA68C8"
-      }
-  },
+{
+  "scope": "output.statement.scriptcards",
+  "settings": {
+    "foreground": "#BA68C8"
+  }
+},
 ```
 The settings in `settings-example.json` use the [Google Material Design Palette](https://material.io/resources/color/#!/?view.left=0&view.right=0&primary.color=BA68C8). 
 
 ## Scopes
 
-Scopes are created by regular expression captures. 
-Note that `_comment` and `_string` scopes begin with an underscore. This is distinguish from built-in TextMate scope names. 
+Scopes are created by regular expression captures. See tables below.
 
-_This table is not complete._
+Note that `_comment` and `_string` scopes begin with an underscore. This is to distinguish from built-in TextMate (the syntax engine) scope names. 
+
+### Statements
+|Scope name|Capture|
+| --- | ---|
+|`api.statement.scriptcards`|Lines starting with `--@`|
+|`audioeffect.statement.scriptcards`|Lines starting with `--a`|
+|`branchlabel.statement.scriptcards`|Lines starting with `--:`|
+|`branchto.statement.scriptcards`|Lines starting with `--^` and within branch statements|
+|`builtin.statement.scriptcards`|Lines starting with `--~`|
+|`case.statement.scriptcards`|Lines starting with `--c` or `--C`|
+|`_comment.statement.scriptcards`|Lines starting with `--/` and inline after `branchlabel`, `branchto`, and `proccall` statements|
+|`condition.statement.scriptcards`|Lines starting with `--?`|
+|`echo.statement.scriptcards`|Lines starting with `--e`|
+|`exit.statement.scriptcards`|Lines starting with `--X`|
+|`gmwhisper.statement.scriptcards`|Lines starting with `--*`|
+|`info.statement.scriptcards`|Lines starting with `--i` or `--I`|
+|`loadstorage.statement.scriptcards`|Lines starting with `--l` or `--L`|
+|`loop.statement.scriptcards`|Lines starting with `--%`|
+|`objectmod.statement.scriptcards`|Lines starting with `--!`|
+|`output.statement.scriptcards`|Lines starting with `--+`|
+|`parameter.statement.scriptcards`|Lines starting with `--#`|
+|`proccall.statement.scriptcards`|Lines starting with `-->`|
+|`procreturn.statement.scriptcards`|Lines starting with `--<`|
+|`repeating.statement.scriptcards`|Lines starting with `--R`|
+|`roll.statement.scriptcards`|Lines starting with `--=`|
+|`_string.statement.scriptcards`|Lines starting with `--&`|
+|`storestorage.statement.scriptcards`|Lines starting with `--s` or `--S`|
+|`visualeffect.statement.scriptcards`|Lines starting with `--v`|
 
 ### Identifiers
 |Scope name|Capture|
@@ -64,33 +91,6 @@ _This table is not complete._
 |`storestorage.identifier.scriptcards`|`--s` or `--S`|
 |`visualeffect.identifier.scriptcards`|`--v`|
 
-### Statements
-|Scope name|Capture|
-| --- | ---|
-|`api.statement.scriptcards`|Lines starting with `--@`|
-|`audioeffect.statement.scriptcards`|Lines starting with `--a`|
-|`branchlabel.statement.scriptcards`|Lines starting with `--:`|
-|`branchto.statement.scriptcards`|Lines starting with `--^` and within branch statements|
-|`builtin.statement.scriptcards`|Lines starting with `--~`|
-|`case.statement.scriptcards`|Lines starting with `--c` or `--C`|
-|`_comment.statement.scriptcards`|Lines starting with `--/` and inline after `branchlabel`, `branchto`, and `proccall` statements|
-|`condition.statement.scriptcards`|Lines starting with `--?`|
-|`echo.statement.scriptcards`|Lines starting with `--e`|
-|`exit.statement.scriptcards`|Lines starting with `--X`|
-|`gmwhisper.statement.scriptcards`|Lines starting with `--*`|
-|`info.statement.scriptcards`|Lines starting with `--i` or `--I`|
-|`loadstorage.statement.scriptcards`|Lines starting with `--l` or `--L`|
-|`loop.statement.scriptcards`|Lines starting with `--%`|
-|`objectmod.statement.scriptcards`|Lines starting with `--!`|
-|`output.statement.scriptcards`|Lines starting with `--+`|
-|`parameter.statement.scriptcards`|Lines starting with `--#`|
-|`proccall.statement.scriptcards`|Lines starting with `-->`|
-|`procreturn.statement.scriptcards`|Lines starting with `--<`|
-|`repeating.statement.scriptcards`|Lines starting with `--R`|
-|`roll.statement.scriptcards`|Lines starting with `--=`|
-|`_string.statement.scriptcards`|Lines starting with `--&`|
-|`storestorage.statement.scriptcards`|Lines starting with `--s` or `--S`|
-|`visualeffect.statement.scriptcards`|Lines starting with `--v`|
 
 ### Tags
 |Scope name|Capture|
@@ -117,3 +117,37 @@ _This table is not complete._
 |`visualeffect.tag.scriptcards`|Between `--v` and `\|`|
 
 ### References
+|Scope name|Capture|
+|---|---|
+|`reference.scriptcards`|All of the below|
+|`campaign.reference.scriptcards`|[*C:.+?]|
+|`page.reference.scriptcards`|[*P:.+?]|
+|`parameter.reference.scriptcards`|[%n%]
+|`repeatingvalue.reference.scriptcards`|[*R:.+?]|
+|`repeatingattribute.reference.scriptcards`|[*R>:.+?]|
+|`_string.reference.scriptcards`|Identifier and conditional branch assignment, hard-bracket referencing, loop tags|
+|`targettoken.reference.scriptcards`|[*T:.+?]|
+|`roll.reference.scriptcards`|Identifier and conditional branch assignment, hard-bracket referencing|
+
+### Operators
+|Scope name|Capture|
+|---|---|
+|`operator.scriptcards`|All of the below|
+|`equalto.operator.scriptcards`|`-eq`|
+|`equaltocaseinsensitive.operator.scriptcards`|`-eqi`|
+|`notequalto.operator.scriptcards`|`-ne`|
+|`notequaltocaseinsensitive.operator.scriptcards`|`-nei`|
+|`greaterthan.operator.scriptcards`|`-gt`|
+|`greaterthanorequalto.operator.scriptcards`|`-ge`|
+|`lessthan.operator.scriptcards`|`-lt`|
+|`lessthanorequalto.operator.scriptcards`|`-le`|
+|`includes.operator.scriptcards`|`-inc`|
+|`notincludes.operator.scriptcards`|`-ninc`|
+
+### Other
+|Scope name|Capture|
+|---|---|
+|`inlineformatting.scriptcards`|`[b][/b], [i][/i], [u][/u], [s][/s], [c][/c], [l][/l], [r][/r], [j][/j], [br], [hr], [hr #xxxxxx], [#xxx][/#],[#xxxxxx][/#],[img][/img],[button][/button],[sheetbutton][/sheetbutton],[rbutton][/rbutton],[t][/t],[tr][/tr],[td][/td]`|
+|`separatorpipe.scriptcard`|`\|` following tag|
+|`doubledash.scriptcard`|`--` preceding identifier|
+|`quoted.scriptcards`|Quoted strings in statements.|

@@ -1198,7 +1198,7 @@
 		"inline-formatting": {
 			"patterns": [{
 				"name": "inlineformatting.scriptcards",
-				"match": "\\[\/?(br|b|i|u|s|c|l|r|j|img|button|sheetbutton|rbutton|t|tr|td|[0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})\\]|\\[hr\\s#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})\\]"
+				"match": "\\[\/?(#|br|b|i|u|s|c|l|r|j|img|button|sheetbutton|rbutton|t|tr|td|#[0-9A-Fa-f]{3}|#[0-9A-Fa-f]{6})\\]|\\[hr\\s#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})\\]"
 			}]
 		},
 		"branch-format": {
