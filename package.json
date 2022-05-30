@@ -2,7 +2,7 @@
     "name": "scriptcards",
     "displayName": "ScriptCards Syntax Highlighting",
     "description": "Provides syntax highlighting for the ScriptCards scripting language, available on Roll20 via the ScriptCards API.",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "publisher": "Matt Donnelly",
     "repository": "https://github.com/deukalion-io/scriptcards-syntax-highlighting",
     "license": "MIT",
