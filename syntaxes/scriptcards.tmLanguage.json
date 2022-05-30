@@ -137,10 +137,7 @@
 							}]
 						}
 					},
-					"end": "(?=\n)",
-					"patterns": [{
-						"include": "#statement-util"
-					}]
+					"end": "(?=\n)"
 				},
 				{
 					"name": "condition.statement.scriptcards",
@@ -155,6 +152,9 @@
 					"end": "(?=\n)",
 					"patterns": [{
 						"include": "#statement-util"
+					},
+					{
+						"include": "#branch-format"
 					}]
 				},
 				{
@@ -215,6 +215,9 @@
 					"end": "(?=\n|--)",
 					"patterns": [{
 						"include": "#statement-util"
+					},
+					{
+						"include": "#inline-formatting"
 					}]
 				},
 				{
@@ -1127,7 +1130,8 @@
 		"comments-inline": {
 			"patterns": [{
 				"name": "_comment.statement.scriptcards",
-				"match": ".*"
+				"begin": "[^-{2}]",
+				"end": "(?=\n|--)"
 			}]
 		},
 		"doubledash": {
@@ -1157,7 +1161,18 @@
 		"inline-formatting": {
 			"patterns": [{
 				"name": "inlineformatting.scriptcards",
-				"match": "\\[br\\]"
+				"match": "\\[\/?(br|b|i|u|s|c|l|r|j|img|button|sheetbutton|rbutton|t|tr|td|[0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})\\]|\\[hr\\s#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})\\]"
+			}]
+		},
+		"branch-format":{
+			"patterns": [
+			{
+				"name": "proccall.statement.scriptcards",
+				"match": ">[\\w\\s]+(?=;|\\||\\n)"
+			},
+			{
+				"name": "branchlabel.statement.scriptcards",
+				"match": "[\\w\\s]+(?=\\||\\n)"
 			}]
 		}
 	}
