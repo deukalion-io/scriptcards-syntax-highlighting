@@ -60,12 +60,6 @@
 				}
 			}
 		},
-		"separator-pipe":{
-			"patterns": [{
-				"name": "separatorpipe.scriptcards",
-				"match": "\\|{1}"
-			}]
-		},
 		"comparison-operators": {
 			"patterns": [{
 					"name": "equalto.operator.scriptcards",
@@ -120,8 +114,7 @@
 			}]
 		},
 		"statement-util": {
-			"patterns": [
-				{
+			"patterns": [{
 					"include": "#tags"
 				},
 				{
@@ -129,9 +122,6 @@
 				},
 				{
 					"include": "#quoted-text"
-				},
-				{
-					"include": "#operators"
 				}
 			]
 
@@ -155,6 +145,36 @@
 				{
 					"name": "condition.statement.scriptcards",
 					"begin": "(--\\?)",
+					"beginCaptures": {
+						"0": {
+							"patterns": [{
+								"include": "#identifiers"
+							}]
+						}
+					},
+					"end": "(?=\n)",
+					"patterns": [{
+						"include": "#statement-util"
+					}]
+				},
+				{
+					"name": "visualeffect.statement.scriptcards",
+					"begin": "(--v)",
+					"beginCaptures": {
+						"0": {
+							"patterns": [{
+								"include": "#identifiers"
+							}]
+						}
+					},
+					"end": "(?=\n)",
+					"patterns": [{
+						"include": "#statement-util"
+					}]
+				},
+				{
+					"name": "audiotrack.statement.scriptcards",
+					"begin": "(--a)",
 					"beginCaptures": {
 						"0": {
 							"patterns": [{
@@ -224,8 +244,12 @@
 					},
 					"end": "(?=\n|--)",
 					"patterns": [{
-						"include": "#statement-util"
-					}]
+							"include": "#statement-util"
+						},
+						{
+							"include": "#inline-formatting"
+						}
+					]
 				},
 				{
 					"name": "branchlabel.statement.scriptcards",
@@ -258,11 +282,12 @@
 					},
 					"end": "(?=\n|--)",
 					"patterns": [{
-						"include": "#statement-util"
-					},
-					{
-						"include": "#comments-inline"
-					}]
+							"include": "#statement-util"
+						},
+						{
+							"include": "#comments-inline"
+						}
+					]
 				},
 				{
 					"name": "proccall.statement.scriptcards",
@@ -291,11 +316,12 @@
 					},
 					"end": "(?=\n|--)",
 					"patterns": [{
-						"include": "#statement-util"
-					},
-					{
-						"include": "#comments-inline"
-					}]
+							"include": "#statement-util"
+						},
+						{
+							"include": "#comments-inline"
+						}
+					]
 				},
 				{
 					"name": "repeating.statement.scriptcards",
@@ -414,6 +440,21 @@
 					}]
 				},
 				{
+					"name": "echo.statement.scriptcards",
+					"begin": "(--e)",
+					"beginCaptures": {
+						"0": {
+							"patterns": [{
+								"include": "#identifiers"
+							}]
+						}
+					},
+					"end": "(?=\n|--)",
+					"patterns": [{
+						"include": "#statement-util"
+					}]
+				},
+				{
 					"name": "storestorage.statement.scriptcards",
 					"begin": "(--[sS])",
 					"beginCaptures": {
@@ -438,10 +479,7 @@
 							}]
 						}
 					},
-					"end": "(?=\n|--)",
-					"patterns": [{
-						"include": "#statement-info"
-					}]
+					"end": "(?=\n|--)"
 				},
 				{
 					"name": "gmwhisper.statement.scriptcards",
@@ -475,21 +513,19 @@
 				}
 			]
 		},
-		"inline-formatting": {
-
-		},
 		"tags": {
 			"patterns": [{
 					"name": "_string.tag.scriptcards",
 					"match": "(?<=--&)[^|]+\\|",
 					"captures": {
-						"0":{
-							"patterns":[{
-								"include": "#separator-pipe"
-							},
-							{
-								"include": "#references"
-							}]
+						"0": {
+							"patterns": [{
+									"include": "#separator-pipe"
+								},
+								{
+									"include": "#references"
+								}
+							]
 						}
 					}
 				},
@@ -497,13 +533,14 @@
 					"name": "parameter.tag.scriptcards",
 					"match": "(?<=--#)[^|]+\\|",
 					"captures": {
-						"0":{
-							"patterns":[{
-								"include": "#separator-pipe"
-							},
-							{
-								"include": "#references"
-							}]
+						"0": {
+							"patterns": [{
+									"include": "#separator-pipe"
+								},
+								{
+									"include": "#references"
+								}
+							]
 						}
 					}
 				},
@@ -511,13 +548,14 @@
 					"name": "roll.tag.scriptcards",
 					"match": "(?<=--=)[^|]+\\|",
 					"captures": {
-						"0":{
-							"patterns":[{
-								"include": "#separator-pipe"
-							},
-							{
-								"include": "#references"
-							}]
+						"0": {
+							"patterns": [{
+									"include": "#separator-pipe"
+								},
+								{
+									"include": "#references"
+								}
+							]
 						}
 					}
 				},
@@ -525,13 +563,14 @@
 					"name": "loadstorage.tag.scriptcards",
 					"match": "(?<=--[lL])[^|]+\\|",
 					"captures": {
-						"0":{
-							"patterns":[{
-								"include": "#separator-pipe"
-							},
-							{
-								"include": "#references"
-							}]
+						"0": {
+							"patterns": [{
+									"include": "#separator-pipe"
+								},
+								{
+									"include": "#references"
+								}
+							]
 						}
 					}
 				},
@@ -539,13 +578,14 @@
 					"name": "storestorage.tag.scriptcards",
 					"match": "(?<=--[sS])[^|]+\\|",
 					"captures": {
-						"0":{
-							"patterns":[{
-								"include": "#separator-pipe"
-							},
-							{
-								"include": "#references"
-							}]
+						"0": {
+							"patterns": [{
+									"include": "#separator-pipe"
+								},
+								{
+									"include": "#references"
+								}
+							]
 						}
 					}
 				},
@@ -553,13 +593,14 @@
 					"name": "builtin.tag.scriptcards",
 					"match": "(?<=--~)[^|]+\\|",
 					"captures": {
-						"0":{
-							"patterns":[{
-								"include": "#separator-pipe"
-							},
-							{
-								"include": "#references"
-							}]
+						"0": {
+							"patterns": [{
+									"include": "#separator-pipe"
+								},
+								{
+									"include": "#references"
+								}
+							]
 						}
 					}
 				},
@@ -567,13 +608,14 @@
 					"name": "api.tag.scriptcards",
 					"match": "(?<=--@)[^|]+\\|",
 					"captures": {
-						"0":{
-							"patterns":[{
-								"include": "#separator-pipe"
-							},
-							{
-								"include": "#references"
-							}]
+						"0": {
+							"patterns": [{
+									"include": "#separator-pipe"
+								},
+								{
+									"include": "#references"
+								}
+							]
 						}
 					}
 				},
@@ -581,13 +623,14 @@
 					"name": "branchlabel.tag.scriptcards",
 					"match": "(?<=--:)[^|]+\\|",
 					"captures": {
-						"0":{
-							"patterns":[{
-								"include": "#separator-pipe"
-							},
-							{
-								"include": "#references"
-							}]
+						"0": {
+							"patterns": [{
+									"include": "#separator-pipe"
+								},
+								{
+									"include": "#references"
+								}
+							]
 						}
 					}
 				},
@@ -595,13 +638,14 @@
 					"name": "output.tag.scriptcards",
 					"match": "(?<=--\\+)[^|]*\\|",
 					"captures": {
-						"0":{
-							"patterns":[{
-								"include": "#separator-pipe"
-							},
-							{
-								"include": "#references"
-							}]
+						"0": {
+							"patterns": [{
+									"include": "#separator-pipe"
+								},
+								{
+									"include": "#references"
+								}
+							]
 						}
 					}
 				},
@@ -609,13 +653,14 @@
 					"name": "proccall.tag.scriptcards",
 					"match": "(?<=--\\>)[^|]+\\|",
 					"captures": {
-						"0":{
-							"patterns":[{
-								"include": "#separator-pipe"
-							},
-							{
-								"include": "#references"
-							}]
+						"0": {
+							"patterns": [{
+									"include": "#separator-pipe"
+								},
+								{
+									"include": "#references"
+								}
+							]
 						}
 					}
 				},
@@ -623,13 +668,14 @@
 					"name": "gmwhisper.tag.scriptcards",
 					"match": "(?<=--\\*)[^|]*\\|",
 					"captures": {
-						"0":{
-							"patterns":[{
-								"include": "#separator-pipe"
-							},
-							{
-								"include": "#references"
-							}]
+						"0": {
+							"patterns": [{
+									"include": "#separator-pipe"
+								},
+								{
+									"include": "#references"
+								}
+							]
 						}
 					}
 				},
@@ -637,13 +683,14 @@
 					"name": "case.tag.scriptcards",
 					"match": "(?<=--[cC])[^|]+\\|",
 					"captures": {
-						"0":{
-							"patterns":[{
-								"include": "#separator-pipe"
-							},
-							{
-								"include": "#references"
-							}]
+						"0": {
+							"patterns": [{
+									"include": "#separator-pipe"
+								},
+								{
+									"include": "#references"
+								}
+							]
 						}
 					}
 				},
@@ -651,13 +698,14 @@
 					"name": "loop.tag.scriptcards",
 					"match": "(?<=--%)[^|]+\\|",
 					"captures": {
-						"0":{
-							"patterns":[{
-								"include": "#separator-pipe"
-							},
-							{
-								"include": "#references"
-							}]
+						"0": {
+							"patterns": [{
+									"include": "#separator-pipe"
+								},
+								{
+									"include": "#references"
+								}
+							]
 						}
 					}
 				},
@@ -665,17 +713,20 @@
 					"name": "condition.tag.scriptcards",
 					"match": "(?<=--\\?)[^|]+\\|",
 					"captures": {
-						"0":{
-							"patterns":[{
-								"include": "#separator-pipe"
-							},
-							{
-								"include": "#references"
-							},
-							{
-								"include": "#quoted-text"
-							}
-						]
+						"0": {
+							"patterns": [{
+									"include": "#separator-pipe"
+								},
+								{
+									"include": "#references"
+								},
+								{
+									"include": "#quoted-text"
+								},
+								{
+									"include": "#operators"
+								}
+							]
 						}
 					}
 				},
@@ -683,13 +734,14 @@
 					"name": "branchto.tag.scriptcards",
 					"match": "(?<=--\\^)[^|]+\\|",
 					"captures": {
-						"0":{
-							"patterns":[{
-								"include": "#separator-pipe"
-							},
-							{
-								"include": "#references"
-							}]
+						"0": {
+							"patterns": [{
+									"include": "#separator-pipe"
+								},
+								{
+									"include": "#references"
+								}
+							]
 						}
 					}
 				},
@@ -697,13 +749,59 @@
 					"name": "objectmod.tag.scriptcards",
 					"match": "(?<=--!)[^|]+\\|",
 					"captures": {
-						"0":{
-							"patterns":[{
-								"include": "#separator-pipe"
-							},
-							{
-								"include": "#references"
-							}]
+						"0": {
+							"patterns": [{
+									"include": "#separator-pipe"
+								},
+								{
+									"include": "#references"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "visualeffect.tag.scriptcards",
+					"match": "(?<=--v)[^|]+\\|",
+					"captures": {
+						"0": {
+							"patterns": [{
+									"include": "#separator-pipe"
+								},
+								{
+									"include": "#references"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "audiotrack.tag.scriptcards",
+					"match": "(?<=--a)[^|]*\\|",
+					"captures": {
+						"0": {
+							"patterns": [{
+									"include": "#separator-pipe"
+								},
+								{
+									"include": "#references"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "echo.tag.scriptcards",
+					"match": "(?<=--e)[^|]*\\|",
+					"captures": {
+						"0": {
+							"patterns": [{
+									"include": "#separator-pipe"
+								},
+								{
+									"include": "#references"
+								}
+							]
 						}
 					}
 				}
@@ -741,26 +839,12 @@
 				{
 					"name": "roll.reference.scriptcards",
 					"match": "\\[\\$[^$]+?\\]|(?<!/\\|)(?<=\\||;)=[^;$]+"
+				},
+				{
+					"name": "parameter.reference.scriptcards",
+					"match": "\\[%\\d%\\]"
 				}
 			]
-		},
-		"doubledash": {
-			"name": "doubledash.scriptcards",
-			"match": "--"
-
-		},
-		"quoted-text": {
-			"patterns": [{
-				"name": "quoted.scriptcards",
-				"match": "\"[^\"]*\"",
-				"captures": {
-					"0": {
-						"patterns": [{
-							"include": "#references"
-						}]
-					}
-				}
-			}]
 		},
 		"identifiers": {
 			"patterns": [{
@@ -1004,10 +1088,54 @@
 							}]
 						}
 					}
+				},
+				{
+					"name": "visualeffect.identifier.scriptcards",
+					"match": "(--)v",
+					"captures": {
+						"0": {
+							"patterns": [{
+								"include": "#doubledash"
+							}]
+						}
+					}
+				},
+				{
+					"name": "audiotrack.identifier.scriptcards",
+					"match": "(--)a",
+					"captures": {
+						"0": {
+							"patterns": [{
+								"include": "#doubledash"
+							}]
+						}
+					}
+				},
+				{
+					"name": "echo.identifier.scriptcards",
+					"match": "(--)e",
+					"captures": {
+						"0": {
+							"patterns": [{
+								"include": "#doubledash"
+							}]
+						}
+					}
 				}
 			]
 		},
-		"branch-format": {
+		"comments-inline": {
+			"patterns": [{
+				"name": "_comment.statement.scriptcards",
+				"match": ".*"
+			}]
+		},
+		"doubledash": {
+			"name": "doubledash.scriptcards",
+			"match": "--"
+
+		},
+		"quoted-text": {
 			"patterns": [{
 				"name": "quoted.scriptcards",
 				"match": "\"[^\"]*\"",
@@ -1020,18 +1148,18 @@
 				}
 			}]
 		},
-		"branches": {
+		"separator-pipe": {
 			"patterns": [{
-				"name": "branches.scriptcards",
-				"begin": "\\|(?=\\[)",
-				"end": "(?=\n)"
+				"name": "separatorpipe.scriptcards",
+				"match": "\\|{1}"
 			}]
 		},
-		"comments-inline": {
+		"inline-formatting": {
 			"patterns": [{
-				"name": "_comment.statement.scriptcards",
-				"match": "[^-{2}]+"
+				"name": "inlineformatting.scriptcards",
+				"match": "\\[br\\]"
 			}]
 		}
 	}
 }
+
