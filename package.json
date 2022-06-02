@@ -2,7 +2,7 @@
     "name": "scriptcards",
     "displayName": "ScriptCards Syntax Highlighting",
     "description": "Provides syntax highlighting for the ScriptCards scripting language, available on Roll20 via the ScriptCards API.",
-    "version": "0.1.3",
+    "version": "0.1.4",
     "publisher": "Matt Donnelly",
     "repository": "https://github.com/deukalion-io/scriptcards-syntax-highlighting",
     "license": "MIT",
@@ -13,19 +13,32 @@
         "Programming Languages"
     ],
     "keywords": [
-        "scriptcards", "syntax", "highlighting", "roll20"
+        "scriptcards",
+        "syntax",
+        "highlighting",
+        "roll20"
     ],
     "contributes": {
-        "languages": [{
-            "id": "scriptcards",
-            "aliases": ["ScriptCards", "scriptcards"],
-            "extensions": [".txt", ".scard"],
-            "configuration": "./language-configuration.json"
-        }],
-        "grammars": [{
-            "language": "scriptcards",
-            "scopeName": "source.scard",
-            "path": "./syntaxes/scriptcards.tmLanguage.json"
-        }]
+        "languages": [
+            {
+                "id": "scriptcards",
+                "aliases": [
+                    "ScriptCards",
+                    "scriptcards"
+                ],
+                "extensions": [
+                    ".txt",
+                    ".scard"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "scriptcards",
+                "scopeName": "source.scard",
+                "path": "./syntaxes/scriptcards.tmLanguage.json"
+            }
+        ]
     }
 }
