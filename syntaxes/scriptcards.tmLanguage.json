@@ -268,7 +268,7 @@
 					},
 					"end": "(?=\n|--)",
 					"patterns": [{
-							"include": "#statement-util"
+							"include": "#tag"
 						},
 						{
 							"include": "#comments-inline"
@@ -287,7 +287,7 @@
 					},
 					"end": "(?=\n|--)",
 					"patterns": [{
-							"include": "#statement-util"
+							"include": "#tag"
 						},
 						{
 							"include": "#comments-inline"
@@ -321,7 +321,7 @@
 					},
 					"end": "(?=\n|--)",
 					"patterns": [{
-							"include": "#statement-util"
+							"include": "#tag"
 						},
 						{
 							"include": "#comments-inline"
@@ -1167,7 +1167,7 @@
 		"comments-inline": {
 			"patterns": [{
 				"name": "_comment.statement.scriptcards",
-				"begin": "[^-{2}]",
+				"begin": "(?<!\\G)",
 				"end": "(?=\n|--)"
 			}]
 		},
@@ -1192,7 +1192,7 @@
 		"separator-pipe": {
 			"patterns": [{
 				"name": "separatorpipe.scriptcards",
-				"match": "\\|{1}"
+				"match": "\\|"
 			}]
 		},
 		"inline-formatting": {
